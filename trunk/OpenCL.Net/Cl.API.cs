@@ -28,8 +28,9 @@ namespace OpenCL.Net
 
     public static partial class Cl
     {
-        public const string Library = "opencl.dll";
-        
+        public const string Library = "libOpenCL.so";
+        //public const string Library = "opencl.dll";
+
         #region Platform API
 
         [DllImport(Library)]
@@ -170,6 +171,12 @@ namespace OpenCL.Net
         {
             return new Mem(clCreateBuffer((context as IHandleData).Handle, flags, size, hostPtr, out errcodeRet));
         }
+
+        public static IMem<T> CreateBuffer<T>(Context context, MemFlags flags, IntPtr size, IntPtr hostPtr, out ErrorCode errcodeRet) where T : struct
+        {
+            return new Mem<T>(clCreateBuffer((context as IHandleData).Handle, flags, size, hostPtr, out errcodeRet));
+        }
+
 
         public static IMem CreateBuffer(Context context, MemFlags flags, IntPtr size, object hostData, out ErrorCode errcodeRet)
         {
@@ -820,7 +827,7 @@ namespace OpenCL.Net
                                                   out ErrorCode errCodeRet)
         {
             return new InfoBuffer(clEnqueueMapBuffer((commandQueue as IHandleData).Handle, (buffer as IHandleData).Handle, 
-                                                     blockingMap, mapFlags, offset, cb, numEventsInWaitList, eventWaitList, out e, out errCodeRet));
+                                                     blockingMap, mapFlags, offset, cb, numEventsInWaitList, eventWaitList, out e, out errCodeRet), cb);
         }
 
         [DllImport(Library)]

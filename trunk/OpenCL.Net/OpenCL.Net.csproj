@@ -94,7 +94,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Cl.VectorTypes.cs</LastGenOutput>
     </None>
-    <None Include="Fody.targets" />
     <None Include="net40\OpenCL.Net.targets">
       <SubType>Designer</SubType>
     </None>
@@ -136,5 +135,4 @@ goto end
 :end</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Import Project="Fody.targets" />
 </Project>

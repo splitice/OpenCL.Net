@@ -1,0 +1,1 @@
+C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\Samples\Simple\obj\Release\Simple.csprojResolveAssemblyReference.cache

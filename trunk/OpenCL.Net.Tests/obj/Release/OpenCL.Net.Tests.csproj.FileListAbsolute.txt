@@ -1,0 +1,11 @@
+C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\OpenCL.Net.Tests\obj\Release\OpenCL.Net.Tests.csprojResolveAssemblyReference.cache
+C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\OpenCL.Net.Tests\bin\Release\OpenCL.Net.nuspec
+C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\OpenCL.Net.Tests\bin\Release\TestKernels\TestKernel1.cl
+C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\OpenCL.Net.Tests\bin\Release\OpenCL.Net.Tests.dll
+C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\OpenCL.Net.Tests\bin\Release\OpenCL.Net.Tests.pdb
+C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\OpenCL.Net.Tests\bin\Release\nunit.framework.dll
+C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\OpenCL.Net.Tests\bin\Release\OpenCL.Net.dll
+C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\OpenCL.Net.Tests\bin\Release\OpenCL.Net.pdb
+C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\OpenCL.Net.Tests\bin\Release\nunit.framework.xml
+C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\OpenCL.Net.Tests\obj\Release\OpenCL.Net.Tests.dll
+C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\OpenCL.Net.Tests\obj\Release\OpenCL.Net.Tests.pdb

@@ -891,6 +891,12 @@ namespace OpenCL.Net
         private IntPtr _buffer;
         private int _size;
 
+        public InfoBuffer(IntPtr buffer, IntPtr size)
+        {
+            _size = (int)size;
+            _buffer = buffer;
+        }
+
         public InfoBuffer(IntPtr size)
         {
             _size = (int)size;
@@ -906,7 +912,7 @@ namespace OpenCL.Net
                 CopyMemory(_buffer, source, length);
         }
 
-        internal IntPtr Address
+        public IntPtr Address
         {
             get
             {
