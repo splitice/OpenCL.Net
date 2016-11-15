@@ -67,7 +67,7 @@ namespace OpenCL.Net
     };
 
     [Flags]
-    public enum MapFlags: int // cl_int
+    public enum MapFlags: long // cl_int
     {
         Read = (1 << 0),
         Write = (1 << 1),

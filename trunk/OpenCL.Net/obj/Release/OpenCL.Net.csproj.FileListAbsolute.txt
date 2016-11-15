@@ -1,6 +1,6 @@
-C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\OpenCL.Net\obj\Release\OpenCL.Net.csprojResolveAssemblyReference.cache
 C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\OpenCL.Net\obj\Release\OpenCL.Net.dll
 C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\OpenCL.Net\obj\Release\OpenCL.Net.pdb
 C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\OpenCL.Net\bin\Release\OpenCL.Net.nuspec
 C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\OpenCL.Net\bin\Release\OpenCL.Net.dll
 C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\OpenCL.Net\bin\Release\OpenCL.Net.pdb
+C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\OpenCL.Net\obj\Release\OpenCL.Net.csprojResolveAssemblyReference.cache

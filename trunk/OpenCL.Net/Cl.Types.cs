@@ -74,12 +74,22 @@ namespace OpenCL.Net
             error.Check();
                 
             Devices = deviceInfoBuffer.CastToArray<Device>(deviceInfoBuffer.Size / Marshal.SizeOf(typeof(IntPtr)));
-                
-            DeviceTypes = (from d in Devices select Cl.GetDeviceInfo(d, DeviceInfo.Type, out error).CastTo<DeviceType>()).ToArray();
-            error.Check();
 
-            CommandQueues = (from d in Devices select Cl.CreateCommandQueue(Context, d, commandQueueProperties, out error)).ToArray();
-            error.Check();
+            List<DeviceType> list1 = new List<DeviceType>();
+            foreach (var d in Devices)
+            {
+                list1.Add(Cl.GetDeviceInfo(d, DeviceInfo.Type, out error).CastTo<DeviceType>());
+                error.Check();
+            }
+            DeviceTypes = list1.ToArray();
+
+            List<CommandQueue> list = new List<CommandQueue>();
+            foreach (var d in Devices)
+            {
+                list.Add(Cl.CreateCommandQueue(Context, d, commandQueueProperties, out error));
+                error.Check();
+            }
+            CommandQueues = list.ToArray();
         }
 
         public void Dispose()

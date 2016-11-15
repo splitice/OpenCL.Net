@@ -31,6 +31,7 @@ namespace OpenCL.Net
         public const string Library = "libOpenCL.so";
         //public const string Library = "opencl.dll";
 
+
         #region Platform API
 
         [DllImport(Library)]
@@ -119,7 +120,7 @@ namespace OpenCL.Net
                                                              DeviceType deviceType,
                                                              ContextNotify pfnNotify,
                                                              IntPtr userData,
-                                                             [Out] [MarshalAs(UnmanagedType.I4)] out ErrorCode errcodeRet);
+                                                             [Out] out ErrorCode errcodeRet);
         public static Context CreateContextFromType(ContextProperty[] properties,
                                                     DeviceType deviceType,
                                                     ContextNotify pfnNotify,
@@ -166,7 +167,7 @@ namespace OpenCL.Net
         private static extern IntPtr clCreateBuffer(IntPtr context, 
                                                     MemFlags flags, 
                                                     IntPtr size, IntPtr hostPtr,
-                                                    [Out] [MarshalAs(UnmanagedType.I4)] out ErrorCode errcodeRet);
+                                                    [Out] out ErrorCode errcodeRet);
         public static IMem CreateBuffer(Context context, MemFlags flags, IntPtr size, IntPtr hostPtr, out ErrorCode errcodeRet)
         {
             return new Mem(clCreateBuffer((context as IHandleData).Handle, flags, size, hostPtr, out errcodeRet));
@@ -826,6 +827,7 @@ namespace OpenCL.Net
                                                   out Event e,
                                                   out ErrorCode errCodeRet)
         {
+            Console.WriteLine("0x{0:X8} 0x{1:X8}", (commandQueue as IHandleData).Handle, (buffer as IHandleData).Handle);
             return new InfoBuffer(clEnqueueMapBuffer((commandQueue as IHandleData).Handle, (buffer as IHandleData).Handle, 
                                                      blockingMap, mapFlags, offset, cb, numEventsInWaitList, eventWaitList, out e, out errCodeRet), cb);
         }
