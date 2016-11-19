@@ -827,7 +827,6 @@ namespace OpenCL.Net
                                                   out Event e,
                                                   out ErrorCode errCodeRet)
         {
-            Console.WriteLine("0x{0:X8} 0x{1:X8}", (commandQueue as IHandleData).Handle, (buffer as IHandleData).Handle);
             return new InfoBuffer(clEnqueueMapBuffer((commandQueue as IHandleData).Handle, (buffer as IHandleData).Handle, 
                                                      blockingMap, mapFlags, offset, cb, numEventsInWaitList, eventWaitList, out e, out errCodeRet), cb);
         }

@@ -86,7 +86,7 @@ namespace OpenCL.Net.Tasks
         private const string Identifier = "identifier";
         private const string VectorWidth = "vectorWidth";
 
-        private static readonly Regex _kernelParser = new Regex(@"(__)?kernel\s+void\s+(?<kernelName>[\w_]+)\s*\((\s*(__)?(?<qualifier>((?<qual>(global|local|read_only|write_only))\s+)?(?(qual)|(\.?)))(?<datatype>(bool|char|unsigned char|uchar|short|unsigned short|ushort|float|double|int|unsigned int|uint|long|unsigned long|ulong|size_t|image2d_t|image3d_t|sampler_t))(?<vectorWidth>(16|2|3|4|8)?)\s*(?<pointer>\*?)\s*(?<identifier>[_\w]+)\s*,?\s*)+\)",
+        private static readonly Regex _kernelParser = new Regex(@"(__)?kernel\s+void\s+(?<kernelName>[\w_]+)\s*\((?:\s*(?:volatile|const))?(\s*(__)?(?<qualifier>((?<qual>(global|local|read_only|write_only))\s+)?(?(qual)|(\.?)))(?:(?:volatile|const)\s*)?(?<datatype>(bool|char|unsigned char|uchar|short|unsigned short|ushort|float|double|int|unsigned int|uint|long|unsigned long|ulong|size_t|image2d_t|image3d_t|sampler_t))(?<vectorWidth>(16|2|3|4|8)?)\s*(?<pointer>\*?)\s*(?<identifier>[_\w]+)\s*,?\s*)+\)",
             RegexOptions.Compiled | RegexOptions.ExplicitCapture);
         private static readonly Regex _stripLineBreaksInKernelSignature = new Regex(@"(__)?kernel(?:\r\n)*.+(?:\r\n)*\((?:~[_a-zA-Z0-9])*([_a-zA-Z0-9*\s]+,?(?:~[_a-zA-Z0-9])*)+");
         
@@ -222,7 +222,7 @@ namespace OpenCL.Net.Tasks
 
                     var kernelPathProperty = new CodeMemberProperty
                     {
-                        Attributes = MemberAttributes.Override | MemberAttributes.FamilyOrAssembly,
+                        Attributes = MemberAttributes.Override | MemberAttributes.Family,
                         Name = "KernelPath",
                         Type = new CodeTypeReference(typeof(string), CodeTypeReferenceOptions.GlobalReference),
                         HasGet = true,
@@ -235,7 +235,7 @@ namespace OpenCL.Net.Tasks
 
                     var originalKernelPath = new CodeMemberProperty
                     {
-                        Attributes = MemberAttributes.Override | MemberAttributes.FamilyOrAssembly,
+                        Attributes = MemberAttributes.Override | MemberAttributes.Family,
                         Name = "OriginalKernelPath",
                         Type = new CodeTypeReference(typeof(string), CodeTypeReferenceOptions.GlobalReference),
                         HasGet = true,
@@ -246,7 +246,7 @@ namespace OpenCL.Net.Tasks
 
                     var kernelSource = new CodeMemberProperty 
                     { 
-                        Attributes = MemberAttributes.Override | MemberAttributes.FamilyOrAssembly,
+                        Attributes = MemberAttributes.Override | MemberAttributes.Family,
                         Name = "KernelSource",
                         Type = new CodeTypeReference(typeof(string), CodeTypeReferenceOptions.GlobalReference),
                         HasGet = true,
@@ -262,7 +262,7 @@ namespace OpenCL.Net.Tasks
 
                     var kernelNameProperty = new CodeMemberProperty
                     {
-                        Attributes = MemberAttributes.Override | MemberAttributes.FamilyOrAssembly,
+                        Attributes = MemberAttributes.Override | MemberAttributes.Family,
                         Name = "KernelName",
                         Type = new CodeTypeReference(typeof(string), CodeTypeReferenceOptions.GlobalReference),
                         HasGet = true,
