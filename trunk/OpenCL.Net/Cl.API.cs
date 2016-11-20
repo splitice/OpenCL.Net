@@ -28,8 +28,8 @@ namespace OpenCL.Net
 
     public static partial class Cl
     {
-        public const string Library = "libOpenCL.so";
-        //public const string Library = "opencl.dll";
+        //public const string Library = "libOpenCL.so";
+        public const string Library = "opencl.dll";
 
 
         #region Platform API
