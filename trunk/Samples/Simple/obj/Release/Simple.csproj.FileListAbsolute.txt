@@ -1,1 +1,10 @@
 C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\Samples\Simple\obj\Release\Simple.csprojResolveAssemblyReference.cache
+C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\Samples\Simple\bin\Release\OpenCL.Net.nuspec
+C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\Samples\Simple\bin\Release\Kernel.cl
+C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\Samples\Simple\bin\Release\Simple.exe.config
+C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\Samples\Simple\bin\Release\Simple.exe
+C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\Samples\Simple\bin\Release\Simple.pdb
+C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\Samples\Simple\bin\Release\OpenCL.Net.dll
+C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\Samples\Simple\bin\Release\OpenCL.Net.pdb
+C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\Samples\Simple\obj\Release\Simple.exe
+C:\Users\splitice\Documents\GitHub\OpenCL.Net\trunk\Samples\Simple\obj\Release\Simple.pdb

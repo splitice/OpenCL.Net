@@ -20,25 +20,25 @@ namespace Kernel {
                 base(context) {
         }
         
-        protected internal override string KernelPath {
+        protected override string KernelPath {
             get {
                 return System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Kernel.cl");
             }
         }
-        
-        protected internal override string OriginalKernelPath {
+
+        protected override string OriginalKernelPath {
             get {
                 return "C:\\Users\\splitice\\Documents\\GitHub\\OpenCL.Net\\trunk\\Samples\\Simple\\Kernel.cl";
             }
         }
         
-        protected internal override string KernelSource {
+        protected override string KernelSource {
             get {
                 return System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Kernel.cl");
             }
         }
         
-        protected internal override string KernelName {
+        protected override string KernelName {
             get {
                 return "doSomething";
             }

@@ -113,6 +113,12 @@ namespace OpenCL.Net
     public struct Sampler : IRefCountedHandle
     {
         private readonly IntPtr _handle;
+        private bool _disposed;
+
+        ~Sampler()
+        {
+            Dispose();
+        }
 
         internal Sampler(IntPtr handle)
         {
@@ -149,6 +155,8 @@ namespace OpenCL.Net
 
         public void Dispose()
         {
+            if (_disposed) return;
+            _disposed = true;
             Release();
         }
 
@@ -156,9 +164,15 @@ namespace OpenCL.Net
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct Event : IRefCountedHandle
+    public class Event : IRefCountedHandle
     {
         private readonly IntPtr _handle;
+        private bool _disposed;
+        
+        ~Event()
+        {
+            Dispose();
+        }
 
         internal Event(IntPtr handle)
         {
@@ -195,6 +209,8 @@ namespace OpenCL.Net
 
         public void Dispose()
         {
+            if (_disposed) return;
+            _disposed = true;
             Release();
         }
 
@@ -437,9 +453,15 @@ namespace OpenCL.Net
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct Mem : IMem, IRefCountedHandle, IEquatable<Mem>
+    public class Mem : IMem, IRefCountedHandle, IEquatable<Mem>
     {
         private readonly IntPtr _handle;
+        private bool _disposed;
+
+        ~Mem()
+        {
+            Dispose();
+        }
 
         internal Mem(IntPtr handle)
         {
@@ -476,6 +498,8 @@ namespace OpenCL.Net
 
         public void Dispose()
         {
+            if (_disposed) return;
+            _disposed = true;
             Release();
         }
 

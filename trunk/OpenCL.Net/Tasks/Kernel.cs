@@ -86,10 +86,11 @@ namespace OpenCL.Net.Tasks
         private const string Identifier = "identifier";
         private const string VectorWidth = "vectorWidth";
 
-        private static readonly Regex _kernelParser = new Regex(@"(__)?kernel\s+void\s+(?<kernelName>[\w_]+)\s*\((?:(?:\s*(?:volatile|const))?(\s*(__)?(?<qualifier>((?<qual>(global|local|read_only|write_only))\s+)?(?(qual)|(\.?)))(?:(?:volatile|const)\s*)?(?<datatype>(bool|char|unsigned char|uchar|short|unsigned short|ushort|float|double|int|unsigned int|uint|long|unsigned long|ulong|size_t|image2d_t|image3d_t|sampler_t))(?<vectorWidth>(16|2|3|4|8)?)\s*(?<pointer>\*?)\s*(?<identifier>[_\w]+)\s*,?\s*))+\)",
+        private static readonly Regex _kernelParser = new Regex(@"(__)?kernel\s+void\s+(?<kernelName>[\w_]+)\s*\((?:(?:\s*(?:volatile|const))?(\s*(__)?(?<qualifier>((?<qual>(global|local|read_only|write_only))\s+)?(?(qual)|(\.?)))(?:(?:volatile|const)\s*)?(?<datatype>[a-zA-Z0-9_]+(?<vectorWidth>(16|2|3|4|8)?))\s*(?<pointer>\*?)\s*(?<identifier>[_\w]+)\s*,?\s*))+\)",
             RegexOptions.Compiled | RegexOptions.ExplicitCapture);
         private static readonly Regex _stripLineBreaksInKernelSignature = new Regex(@"(__)?kernel(?:\r\n)*.+(?:\r\n)*\((?:~[_a-zA-Z0-9])*([_a-zA-Z0-9*\s]+,?(?:~[_a-zA-Z0-9])*)+");
-        
+        private static readonly Regex _findUsing = new Regex(@"using \[([^\]]+)\]", RegexOptions.Compiled);
+
         private const string blockComments = @"/\*(.*?)\*/";
         private const string lineComments = @"//(.*?)\r?\n";
         private const string strings = @"""((\\[^\n]|[^""\n])*)""";
@@ -165,7 +166,7 @@ namespace OpenCL.Net.Tasks
                         return typeof(IMem).FullName;
 
                     default:
-                        return "Unknown";
+                        return clType;
                 }
             else
             {
@@ -184,7 +185,7 @@ namespace OpenCL.Net.Tasks
                         return string.Format("{0}{1}", clType, vectorWidth);
 
                     default:
-                        return "Unknown";
+                        return clType;
                 }
             }
         }
@@ -196,7 +197,15 @@ namespace OpenCL.Net.Tasks
             var codeUnit = new CodeCompileUnit();
             var ns = new CodeNamespace(kernelFilename);
             codeUnit.Namespaces.Add(ns);
-            
+
+
+            var match2 = _findUsing.Match(kernelFileContents);
+            while (match2.Success)
+            {
+                ns.Imports.Add(new CodeNamespaceImport(match2.Groups[1].Captures[0].Value));
+                match2 = match2.NextMatch();
+            }
+
             // Strip comments
             StripComments(ref kernelFileContents);
 
@@ -365,7 +374,13 @@ namespace OpenCL.Net.Tasks
                         bool isPointer = !string.IsNullOrEmpty(match.Groups[Pointer].Captures[i].Value);
                         var rawDatatype = match.Groups[Datatype].Captures[i].Value;
                         var name = match.Groups[Identifier].Captures[i].Value;
-                        var vectorWidth = match.Groups[VectorWidth].Captures[i].Value == string.Empty ? 0 : int.Parse(match.Groups[VectorWidth].Captures[i].Value);
+                        int vectorWidth = 0;
+                        if (match.Groups[VectorWidth].Captures.Count >= 1)
+                        {
+                            vectorWidth = match.Groups[VectorWidth].Captures[i].Value == string.Empty
+                                ? 0
+                                : int.Parse(match.Groups[VectorWidth].Captures[i].Value);
+                        }
                         var qualifier = match.Groups[Qualifier].Captures[i].Value.Trim();
                         var local = false;
 
