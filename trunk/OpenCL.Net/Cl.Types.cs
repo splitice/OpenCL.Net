@@ -110,7 +110,7 @@ namespace OpenCL.Net
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct Sampler : IRefCountedHandle
+    public class Sampler : IRefCountedHandle
     {
         private readonly IntPtr _handle;
         private bool _disposed;
@@ -821,10 +821,7 @@ namespace OpenCL.Net
         {
             get
             {
-                return new InfoBuffer
-                {
-                    Address = _buffers[index]
-                }.CastTo<T>();
+                return new InfoBuffer(_buffers[index],IntPtr.Zero).CastTo<T>();
             }
         }
 
@@ -847,10 +844,7 @@ namespace OpenCL.Net
         public void Dispose()
         {
             for (int i = 0; i < _buffers.Length; i++)
-                new InfoBuffer
-                {
-                    Address = _buffers[i]
-                }.Dispose();
+                new InfoBuffer(_buffers[i], IntPtr.Zero, true).Dispose();
         }
     }
 
@@ -878,10 +872,7 @@ namespace OpenCL.Net
         {
             get
             {
-                return new InfoBuffer
-                {
-                    Address = _buffers[index]
-                };
+                return new InfoBuffer(_buffers[index], IntPtr.Zero);
             }
         }
 
@@ -904,37 +895,40 @@ namespace OpenCL.Net
         public void Dispose()
         {
             for (int i = 0; i < _buffers.Length; i++)
-                new InfoBuffer
-                {
-                    Address = _buffers[i]
-                }.Dispose();
+                new InfoBuffer(_buffers[i], IntPtr.Zero, true).Dispose();
         }
     }
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct InfoBuffer : IDisposable
+    public class InfoBuffer : IDisposable
     {
         [DllImport("msvcrt.dll", EntryPoint = "memcpy")]
         private static extern void CopyMemory(IntPtr pDest, IntPtr pSrc, int length);
 
-        private static readonly InfoBuffer _empty = new InfoBuffer
-        {
-            _buffer = IntPtr.Zero
-        };
+
+        private static readonly InfoBuffer _empty = new InfoBuffer(IntPtr.Zero, IntPtr.Zero);
 
         private IntPtr _buffer;
         private int _size;
+        private bool _toDispose;
 
-        public InfoBuffer(IntPtr buffer, IntPtr size)
+        internal InfoBuffer(IntPtr buffer, IntPtr size, bool toDispose = false)
         {
             _size = (int)size;
             _buffer = buffer;
+            _toDispose = toDispose;
         }
 
         public InfoBuffer(IntPtr size)
         {
             _size = (int)size;
             _buffer = Marshal.AllocHGlobal(size);
+            _toDispose = true;
+        }
+
+        ~InfoBuffer()
+        {
+            Dispose();
         }
 
         public InfoBuffer(byte[] array)
@@ -1002,6 +996,7 @@ namespace OpenCL.Net
 
         public void Dispose()
         {
+            if (!_toDispose) return;
             if (_buffer != IntPtr.Zero)
             {
                 Marshal.FreeHGlobal(_buffer);
